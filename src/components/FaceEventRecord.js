@@ -106,6 +106,8 @@ const FaceEventRecord = (props) =>{
             <p>Facing Direction (Vertical): {faceWarning.head_vert}</p>
             <p>Warning At: {faceWarning.timestringserver}</p>
             <p>Warning Message: {faceWarning.message}</p>
+            <p>Left eye: {faceWarning.lefteye}</p>
+            <p>Right eye: {faceWarning.righteye}</p>
             {/* <p>Warning Image: {faceWarning.image}</p>
             <p>Warning Image: {window.location.origin +'/'+ faceWarning.image}</p> */}
             <img src={imgpath}></img>

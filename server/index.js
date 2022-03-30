@@ -55,6 +55,8 @@ app.post("/faceEvents",upload.array('file'), async (req, res) => {
     timeNumber:req.body.time,
     message:req.body.message,
     image:"",
+    lefteye:req.body.lefteye,
+    righteye:req.body.righteye,
   })
 
   //new driver

@@ -33,6 +33,12 @@ const faceDetSchema = new Schema({
     },
     image:{
         type:String,
+    },
+    lefteye:{
+        type:String,
+    },
+    righteye:{
+        type:String,
     }
 })
 
