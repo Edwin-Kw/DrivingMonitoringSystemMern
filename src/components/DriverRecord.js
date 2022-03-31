@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {useParams} from "react-router-dom"
 import FaceEventRecord from "./FaceEventRecord"
+import {Card, Row , Col, CardGroup, Button, Badge  } from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+
 const DriverRecord = (props) =>{
     let { id } = useParams(); 
     const [driver, setDriver] = useState([])
@@ -67,38 +70,40 @@ const DriverRecord = (props) =>{
                 
             </div>
             <h2>Last 10 Face and Gesture Detected Warnings</h2>
-            <ul>
+            
                 {faceWarning.map((facePic)=>(
-                    <li className="list-Container">
-                        <Link to={"/faceeventrecord/"+facePic.warning_id+"/"+driver.driver_id}>
+                    <Card>
+                        <Card.Body>
+                        {/* <Link to={"/faceeventrecord/"+facePic.warning_id+"/"+driver.driver_id}>
                         <p>warning_id: {facePic.warning_id} warning at: {facePic.timestringserver} </p>
                         <p>Warning message: {facePic.message}</p>
-                        {/* <p>Driving Minutes: {facePic.mins}</p>
-                        <p>Driving Scores: {facePic.score}</p>
-                        <p>Driving Status: {driver.status}</p> */}
-                        {/* <p><Link to={{pathname:"/driverrecord/",query:driver.driver_id}}>More Info</Link></p> */}
-                        </Link>
-                    </li>
+                        
+                        </Link> */}
+                        <Card.Header>warning_id: {facePic.warning_id}</Card.Header>
+                        <Card.Title>warning at: {facePic.timestringserver} </Card.Title>
+                        <Card.Text>
+                        Warning message: {facePic.message}
+                        </Card.Text>
+                        <Button variant="primary" href={"/faceeventrecord/"+facePic.warning_id+"/"+driver.driver_id}>More</Button>
+                        </Card.Body>
+                    </Card>
             
                 ))}
-            </ul>
+            
 
             <h2>Last 10 Vehicle Camera Detected Warnings</h2>
-            <ul>
+            
                 {CamWarning.map((camPic)=>(
-                    <li className="list-Container">
-                        <Link to={"/careventrecord/"+camPic.warning_id+"/"+driver.driver_id}>
+                    <Card>
+                        /* <Link to={"/careventrecord/"+camPic.warning_id+"/"+driver.driver_id}>
                         <p>warning_id: {camPic.warning_id} warning at: {camPic.timestringserver} </p>
                         <p>Warning message: {camPic.warningMessage}</p>
-                        {/* <p>Driving Minutes: {facePic.mins}</p>
-                        <p>Driving Scores: {facePic.score}</p>
-                        <p>Driving Status: {driver.status}</p> */}
-                        {/* <p><Link to={{pathname:"/driverrecord/",query:driver.driver_id}}>More Info</Link></p> */}
-                        </Link>
-                    </li>
-            
+                        
+                        </Link> */
+                    
+                    </Card>
                 ))}
-            </ul>
+            
           </div>
     )
     
@@ -106,3 +111,13 @@ const DriverRecord = (props) =>{
   
   
   export default DriverRecord
+
+  /* <p>Driving Minutes: {facePic.mins}</p>
+                        <p>Driving Scores: {facePic.score}</p>
+                        <p>Driving Status: {driver.status}</p> */
+                        /* <p><Link to={{pathname:"/driverrecord/",query:driver.driver_id}}>More Info</Link></p> */
+
+/* <p>Driving Minutes: {facePic.mins}</p>
+                        <p>Driving Scores: {facePic.score}</p>
+                        <p>Driving Status: {driver.status}</p> */
+                        /* <p><Link to={{pathname:"/driverrecord/",query:driver.driver_id}}>More Info</Link></p> */
