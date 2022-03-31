@@ -32,8 +32,8 @@ const DriverRecord = (props) =>{
         axios.get(`http://localhost:3001/driverFace/${id}`)
           .then(res =>{
               const faceWarning = res.data
-              console.log(faceWarning.slice(Math.max(faceWarning.length - 12, 0)))
-              setfaceWarning(faceWarning)
+              //console.log(faceWarning.slice(Math.max(faceWarning.length - 12, 0)))
+              setfaceWarning(faceWarning.reverse())
               setFaceWarningCount(faceWarning.length)
          })
           .catch(err=>{
@@ -42,8 +42,8 @@ const DriverRecord = (props) =>{
           axios.get(`http://localhost:3001/driverCam/${id}`)
           .then(res =>{
               const CamWarning = res.data
-              console.log(CamWarning.slice(Math.max(CamWarning.length - 12, 0)))
-              setCamWarning(CamWarning.slice(Math.max(CamWarning.length - 12, 0)))
+              //console.log(CamWarning.slice(Math.max(CamWarning.length - 12, 0)))
+              setCamWarning(CamWarning.reverse())
               setCarWarningCount(CamWarning.length)
             })
           .catch(err=>{
