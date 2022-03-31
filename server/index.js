@@ -42,7 +42,10 @@ app.post("/faceEvents",upload.array('file'), async (req, res) => {
   //req.body
   //console.log(jsonitem)
   console.log(req.body)
-  let idNum = await faceDetectWarning.countDocuments()
+  let idNumlist = await faceDetectWarning.find().sort({warning_id:-1}).limit(1)
+  let idNum = idNumlist[0].warning_id
+  console.log("idNum")
+  console.log(idNum)
   //console.log(req)
   let faceEvent = new faceDetectWarning({
     warning_id:`${idNum+1}`,
@@ -100,7 +103,11 @@ app.post("/faceEvents",upload.array('file'), async (req, res) => {
 app.post("/carEvents", async (req, res) => {
   console.log(req.body)
   /* console.log(bookdata) */
-  let idNum = await carDetectWarnings.countDocuments()
+  let idNumlist = await carDetectWarnings.find().sort({warning_id:-1}).limit(1)
+  let idNum = idNumlist[0].warning_id
+  console.log("idNum")
+  console.log(idNum)
+  /* let idNum = await carDetectWarnings.countDocuments() */
   let carEvent = new carDetectWarnings({
     warning_id:`${idNum+1}`,
     driver_id:req.body.DRIVER_ID,
