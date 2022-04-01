@@ -12,12 +12,13 @@ const NavbarObj = () =>{
 
     return(
         
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="warning" variant="light">
             <Container>
                 <Navbar.Brand href="/">Driving Monitoring System</Navbar.Brand>
                 <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/driverlist">Drivers</Nav.Link>
+                <Nav.Link href="/allevent">Events Report</Nav.Link>
                 
                 </Nav>
             </Container>

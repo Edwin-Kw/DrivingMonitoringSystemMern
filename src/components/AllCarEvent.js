@@ -7,7 +7,7 @@ import DriverRecord from "./DriverRecord"
 import {Card, Row , Col, CardGroup, Button, Badge  } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-const AllCarEvent =() =>{
+const AllCarEvent =({num}) =>{
     
     const [CamWarning, setCarWarning] = useState([])
 
@@ -17,7 +17,7 @@ const AllCarEvent =() =>{
           .then(res =>{
               const CamWarning = res.data
               //console.log(faceWarning.slice(Math.max(faceWarning.length - 12, 0)))
-              setCarWarning(CamWarning.slice(Math.max(CamWarning.length - 12, 0)).reverse())
+              setCarWarning(CamWarning.slice(Math.max(CamWarning.length - num, 0)).reverse())
               
          })
           .catch(err=>{
@@ -29,8 +29,8 @@ const AllCarEvent =() =>{
     return (
         <div>
             {/* <h2>All Vehicle Camera Detected Warnings</h2> */}
-            <div style= {{height:"750px",overflowX: "hidden", overflowY: "auto" }}>
-            <Row xs={1} md={2} className="g-1" >
+            <div style= {{height:"auto",overflowX: "hidden", overflowY: "auto" }}>
+            <Row xs={1} md={2} className="g-1.5rem" >
                 {CamWarning.map((camPic)=>(
                     <Col >
                         
@@ -38,6 +38,7 @@ const AllCarEvent =() =>{
                         <Card.Img  variant="top" src={process.env.PUBLIC_URL + "/uploads/" +camPic.image}/>
                         <Card.Body>
                           <Card.Title>Warning ID: <Badge pill bg="info">{camPic.warning_id}</Badge></Card.Title>
+                          <Card.Title>Driver ID: <Badge pill bg="primary">{camPic.driver_id}</Badge></Card.Title>
                           <Card.Text bg="light"> <Badge pill bg="warning">warning at:</Badge>{camPic.timestringserver} </Card.Text>
                           <Card.Text bg="light">
                           <Badge pill bg="warning">Warning message:</Badge> {camPic.warningMessage} 
