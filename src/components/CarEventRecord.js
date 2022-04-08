@@ -22,6 +22,8 @@ const CarEventRecord = (props) =>{
     const [FaceWarningCount, setFaceWarningCount] = useState('')
     const [CarWarningCountD, setCarWarningCount] = useState('')
 
+    const [eventLinkage, setEventLinkage] = useState([])
+
     useEffect( async ()=>{
         /* setID(props.query.id) */
         console.log(id)
@@ -80,8 +82,10 @@ const CarEventRecord = (props) =>{
         axios.get(`http://localhost:3001/driverCam/${idx}`)
           .then(res =>{
               const faceWarningtemp = res.data
-              console.log("2")
+              
+              console.log(faceWarningtemp)
               setFaceWarningCount(faceWarningtemp.length)
+              
          })
           .catch(err=>{
               console.log(err)
@@ -91,6 +95,16 @@ const CarEventRecord = (props) =>{
               const CamWarningtemp = res.data
               console.log("3")
               setCarWarningCount(CamWarningtemp.length)
+            })
+          .catch(err=>{
+              console.log(err)
+          })
+        
+          axios.get(`http://localhost:3001/linkdriverFace/${id}/${idx}`) //"/linkdriverFace/:id/:idx"
+          .then(res =>{
+              const eventLinkageTemp = res.data
+              console.log(eventLinkageTemp)
+              setEventLinkage(eventLinkageTemp)
             })
           .catch(err=>{
               console.log(err)
@@ -272,6 +286,33 @@ const CarEventRecord = (props) =>{
                 
                 <img src={imgpath} style={{width:"auto",maxWidth:"100%",height: "auto",maxHeight:"100%",textAlign:"center",display:"block"}}></img>
             </ListGroup> 
+            
+            <div className="bg-warning text-light" style={{paddingTop:"100px",paddingBottom:"100px"}}><h2>Face and Gesture Detected Warnings within 4 hours</h2></div> {/* http://localhost:3000/careventrecord/34/001 */}
+            <div className="scrollbar scrollbar-primary" style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
+                
+                <Row xs={1} md={3} className="g-3rem" >
+                {eventLinkage.map((facePic)=>(
+                    <Col>
+                    
+                    <Card >
+                        <Card.Img  variant="top" src={process.env.PUBLIC_URL + "/uploads/" +facePic.image}/>
+                        <Card.Body>
+                          <Card.Title>Warning ID: <Badge pill bg="info">{facePic.warning_id}</Badge></Card.Title>
+                          <Card.Text bg="light"> <Badge pill bg="warning">warning at: {facePic.timestringserver} </Badge></Card.Text>
+                          <Card.Text bg="light">
+                          <Badge pill bg="warning">Warning message:</Badge> {facePic.message} 
+                          
+                          </Card.Text>
+                          {/* <Button variant="primary">Go somewhere</Button> */}
+                          <Button variant="primary" href={"/faceeventrecord/"+facePic.warning_id+"/"+driver.driver_id}>More</Button>
+                        </Card.Body>
+                    </Card>
+                    <br></br>
+                    </Col>
+                ))}
+                </Row>
+            
+            </div>
 
             </div>
             {/* <div className="Driver-Container">

@@ -6,8 +6,8 @@ import Driverlist from "./Driverlist";
 import DriverRecord from "./DriverRecord"
 import {Card, Row , Col, CardGroup, Button, Badge  } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-
-const AllFaceEvent =() =>{
+import "./AllFaceEvent.css"
+const AllFaceEvent =({num}) =>{
     
     const [faceWarning, setfaceWarning] = useState([])
 
@@ -17,7 +17,7 @@ const AllFaceEvent =() =>{
           .then(res =>{
               const faceWarning = res.data
               //console.log(faceWarning.slice(Math.max(faceWarning.length - 12, 0)))
-              setfaceWarning(faceWarning.slice(Math.max(faceWarning.length - 12, 0)).reverse())
+              setfaceWarning(faceWarning.slice(Math.max(faceWarning.length - num, 0)).reverse())
               
          })
           .catch(err=>{
@@ -29,8 +29,8 @@ const AllFaceEvent =() =>{
     return (
         <div>
             {/* <h2>All Face and Gesture Detected Warnings</h2> */}
-            <div style= {{height:"950px", overflowX: "hidden", overflowY: "auto"}}>
-                <Row xs={1} md={2} className="g-1" >
+            <div style= {{height:"auto", overflowX: "hidden", overflowY: "auto"}}>
+                <Row xs={1} md={2} className="g-1.5rem" >
                 {faceWarning.map((facePic)=>(
                     <Col>
                     
@@ -38,6 +38,7 @@ const AllFaceEvent =() =>{
                         <Card.Img  variant="top" src={process.env.PUBLIC_URL + "/uploads/" +facePic.image}/>
                         <Card.Body>
                           <Card.Title>Warning ID: <Badge pill bg="info">{facePic.warning_id}</Badge></Card.Title>
+                          <Card.Title>Driver ID: <Badge pill bg="primary">{facePic.driver_id}</Badge></Card.Title>
                           <Card.Text bg="light"> <Badge pill bg="warning">warning at:</Badge>{facePic.timestringserver}</Card.Text>
                           <Card.Text bg="light">
                           <Badge pill bg="warning">Warning message:</Badge> {facePic.message} 

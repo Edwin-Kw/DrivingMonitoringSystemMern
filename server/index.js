@@ -42,7 +42,10 @@ app.post("/faceEvents",upload.array('file'), async (req, res) => {
   //req.body
   //console.log(jsonitem)
   console.log(req.body)
-  let idNum = await faceDetectWarning.countDocuments()
+  let idNumlist = await faceDetectWarning.find().sort({warning_id:-1}).limit(1)
+  let idNum = idNumlist[0].warning_id
+  console.log("idNum")
+  console.log(idNum)
   //console.log(req)
   let faceEvent = new faceDetectWarning({
     warning_id:`${idNum+1}`,
@@ -100,7 +103,11 @@ app.post("/faceEvents",upload.array('file'), async (req, res) => {
 app.post("/carEvents", async (req, res) => {
   console.log(req.body)
   /* console.log(bookdata) */
-  let idNum = await carDetectWarnings.countDocuments()
+  let idNumlist = await carDetectWarnings.find().sort({warning_id:-1}).limit(1)
+  let idNum = idNumlist[0].warning_id
+  console.log("idNum")
+  console.log(idNum)
+  /* let idNum = await carDetectWarnings.countDocuments() */
   let carEvent = new carDetectWarnings({
     warning_id:`${idNum+1}`,
     driver_id:req.body.DRIVER_ID,
@@ -203,11 +210,11 @@ app.get("/driverFace/:id", async (req, res) => {
   let getTheDriverFaceWarning = await faceDetectWarning.find({ driver_id: req.params.id })
   let getTheDriverFaceWarning2 = await faceDetectWarning.find()
   console.log(getTheDriverFaceWarning2)
-  if (getTheDriverFaceWarning.length > 0){
-    res.json(getTheDriverFaceWarning)
+  if (req.params.id == "null"){
+    res.json(getTheDriverFaceWarning2)
   }
   else{
-    res.json(getTheDriverFaceWarning2)
+    res.json(getTheDriverFaceWarning)
   }
   
 })
@@ -216,11 +223,11 @@ app.get("/driverCam/:id", async (req, res) => {
   let getTheDriverCamWarning = await carDetectWarnings.find({ driver_id: req.params.id })
   let getTheDriverCamWarning2 = await carDetectWarnings.find()
   /* console.log(bookdata) */
-  if (getTheDriverCamWarning.length > 0){
-    res.json(getTheDriverCamWarning)
+  if (req.params.id == "null"){
+    res.json(getTheDriverCamWarning2)
   }
   else{
-    res.json(getTheDriverCamWarning2)
+    res.json(getTheDriverCamWarning)
   }
 })
 
@@ -249,4 +256,35 @@ app.get("/FaceEvent/:id", async (req, res) => {
   let getTheDriverFaceWarning = await faceDetectWarning.find({ warning_id: req.params.id })
   console.log(req.params.id)
   res.json(getTheDriverFaceWarning)
+})
+
+app.get("/linkdriverFace/:id/:idx", async (req, res) => {
+
+  let getTheDriverFaceWarning = await faceDetectWarning.find({ driver_id: req.params.idx })
+  let getTheDriverCamWarning = await carDetectWarnings.find({ warning_id: req.params.id })
+  let resArray = []
+  for (let i = 0;i < getTheDriverFaceWarning.length;i++){
+      console.log(Math.abs(getTheDriverCamWarning[0].timeNumber- getTheDriverFaceWarning[i].timeNumber))
+      console.log(getTheDriverFaceWarning[i].timestringserver)
+    if (Math.abs(getTheDriverCamWarning[0].timeNumber- getTheDriverFaceWarning[i].timeNumber) <= 60*60*4){
+      console.log("+++++++++++++++++++++++++++++++++++++++++")
+      resArray.push(getTheDriverFaceWarning[i])
+    }
+  }
+  
+  console.log(getTheDriverCamWarning[0].timestringserver)
+  console.log(getTheDriverFaceWarning.length)
+  console.log(resArray.length)
+  console.log("===============================================")
+  res.json(resArray)
+  /* let getTheDriverFaceWarning = await faceDetectWarning.find({ driver_id: req.params.id })
+  let getTheDriverFaceWarning2 = await faceDetectWarning.find()
+  console.log(getTheDriverFaceWarning2)
+  if (req.params.id == "null"){
+    res.json(getTheDriverFaceWarning2)
+  }
+  else{
+    res.json(getTheDriverFaceWarning)
+  } */
+  
 })

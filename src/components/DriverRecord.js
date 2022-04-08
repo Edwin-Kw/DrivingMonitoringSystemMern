@@ -69,7 +69,7 @@ const DriverRecord = (props) =>{
                 <p>Number of Road Warning: {CarWarningCountD}</p>
                 
             </div> */}
-            <h1 style={{paddingTop:"30px"}}>Driver Record of {driver.driver_id}</h1>
+            <h1 style={{paddingTop:"30px"}}>Driver Record of Driver {driver.driver_id}</h1>
             <div className="list" style={{marginLeft:"13rem",marginRight:"13rem",paddingTop:"30px",paddingBottom:"70px"}}>
             <ListGroup as="ol" >
                 <ListGroup.Item
@@ -104,7 +104,7 @@ const DriverRecord = (props) =>{
                     
                     </div>
                     <div className="ms-2 ms-auto">
-                    {driver.score}
+                    {100 - FaceWarningCount-CarWarningCountD}
                     </div>
                 </ListGroup.Item>
                 <ListGroup.Item
@@ -147,8 +147,8 @@ const DriverRecord = (props) =>{
 
             </div>
             
-            <h2>All Face and Gesture Detected Warnings</h2>
-            <div style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
+            <div className="bg-warning text-light" style={{paddingTop:"100px",paddingBottom:"100px"}}><h2>All Face and Gesture Detected Warnings</h2></div>
+            <div className="scrollbar scrollbar-primary" style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
                 {/* {faceWarning.map((facePic)=>(
                     
                         <Card>
@@ -197,8 +197,9 @@ const DriverRecord = (props) =>{
                 </Row>
             
             </div>
-            <h2 style={{marginTop:"70px"}}>All Vehicle Camera Detected Warnings</h2>
-            <div style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
+
+            <div className="bg-warning text-light" style={{paddingTop:"100px",paddingBottom:"100px"}}><h2>All Vehicle Camera Detected Warnings</h2></div>
+            <div className="scrollbar scrollbar-primary" style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
             <Row xs={1} md={3} className="g-3rem" >
                 {CamWarning.map((camPic)=>(
                     <Col >

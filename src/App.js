@@ -6,7 +6,7 @@ import DriverRecord from "./components/DriverRecord"
 import FaceEventRecord from "./components/FaceEventRecord"
 import CarEventRecord from "./components/CarEventRecord"
 import NavbarObj from "./components/NavbarObj"
-
+import AllEvent from "./components/AllEvent"
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
             <Routes>
               <Route exact path="/" element = {<Home/>}/>
               <Route path="/driverlist" element = {<Driverlist/>}/>
+              <Route path="/allevent" element = {<AllEvent/>}/>
               <Route path="/driverrecord/:id" element = {<DriverRecord/>}/>
               <Route path="/faceeventrecord/:id/:idx" element = {<FaceEventRecord/>}/>
               <Route path="/careventrecord/:id/:idx" element = {<CarEventRecord/>}/>

@@ -8,7 +8,7 @@ import {Card, Row , Col, CardGroup, Button, Badge  } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import AllFaceEvent from "./AllFaceEvent"
 import AllCarEvent from "./AllCarEvent"
-const Home =() =>{
+const AllEvent =({num}) =>{
     
     const [faceWarning, setfaceWarning] = useState([])
     const [CamWarning, setCamWarning] = useState([])
@@ -40,20 +40,14 @@ const Home =() =>{
     },[])
     
     return (
-        <div style={{overflowX:"hidden",overflowY:"auto"}}>
-            {/* <h1>
-                home
-            </h1> */}
-            <div className=" text-dark" style={{background: 'LightGoldenRodYellow',paddingTop:"150px",paddingBottom:"150px"}}><h1>Home</h1></div>
+        <div className="scrollbar scrollbar-primary" style={{overflowX:"hidden",overflowY:"scroll"}}>
+            <div className=" text-dark" style={{background: 'LightGoldenRodYellow',paddingTop:"150px",paddingBottom:"150px"}}><h1>Events Report</h1></div>
             <div className="row" style={{display: "flex-flow", flexFlow: "row wrap",marginTop:"10px"}}>
-                <div className="column" style={{width:"100%", marginBottom: "20px",height:"auto",overflowY:"scroll"}}>
-                    <Driverlist isTitle={true}/>
-                </div>
                 <div className="column" style={{width:"50%",height:"250px",overflowY:"visible"}}>
-                    <AllFaceEvent num={4}/>
+                    <AllFaceEvent num={num}/>
                 </div>
                 <div className="column" style={{width:"50%"}}>
-                    <AllCarEvent num={4}/>
+                    <AllCarEvent num={num}/>
                 </div>
             </div>
             {/* <img src={require('../uploads/27f7b09e1ff1d533368ed60de3f7ec4b')}></img> */} 
@@ -63,4 +57,4 @@ const Home =() =>{
     )
 }
 
-export default Home;
+export default AllEvent;
