@@ -18,6 +18,7 @@ const FaceEventRecord = (props) =>{
     
     const [FaceWarningCount, setFaceWarningCount] = useState('')
     const [CarWarningCountD, setCarWarningCount] = useState('') 
+    const [eventLinkage, setEventLinkage] = useState([])
 
     useEffect( async ()=>{
         /* setID(props.query.id) */
@@ -77,6 +78,15 @@ const FaceEventRecord = (props) =>{
               const CamWarningtemp = res.data
               console.log("3")
               setCarWarningCount(CamWarningtemp.length)
+            })
+          .catch(err=>{
+              console.log(err)
+          })
+        axios.get(`http://localhost:3001/linkdriverCam/${id}/${idx}`) //"/linkdriverFace/:id/:idx"
+          .then(res =>{
+              const eventLinkageTemp = res.data
+              console.log(eventLinkageTemp)
+              setEventLinkage(eventLinkageTemp)
             })
           .catch(err=>{
               console.log(err)
@@ -278,7 +288,30 @@ const FaceEventRecord = (props) =>{
                 
                 <img src={imgpath} style={{width:"auto",maxWidth:"100%",height: "auto",maxHeight:"100%",textAlign:"center",display:"block"}}></img>
             </ListGroup> 
-
+            <div className="bg-warning text-light" style={{paddingTop:"100px",paddingBottom:"100px"}}><h2>Vehicle Camera Detected Warnings within 4 hours</h2></div>
+            <div className="scrollbar scrollbar-primary" style= {{height: "600px", overflowX: "hidden", overflowY: "scroll" , margin: "2%"}}>
+            <Row xs={1} md={3} className="g-3rem" >
+                {eventLinkage.map((camPic)=>(
+                    <Col >
+                        
+                    <Card >
+                        <Card.Img  variant="top" src={process.env.PUBLIC_URL + "/uploads/" +camPic.image}/>
+                        <Card.Body>
+                          <Card.Title>Warning ID: <Badge pill bg="info">{camPic.warning_id}</Badge></Card.Title>
+                          <Card.Text bg="light"> <Badge pill bg="warning">warning at: {camPic.timestringserver} </Badge></Card.Text>
+                          <Card.Text bg="light">
+                          <Badge pill bg="warning">Warning message:</Badge> {camPic.warningMessage} 
+                          
+                          </Card.Text>
+                          {/* <Button variant="primary">Go somewhere</Button> */}
+                          <Button variant="primary" href={"/careventrecord/"+camPic.warning_id+"/"+driver.driver_id}>More</Button>
+                        </Card.Body>
+                    </Card>
+                    <br></br>
+                    </Col>
+                ))}
+            </Row>
+            </div>
             </div>
             
             {/* <div className="Face-Record">
